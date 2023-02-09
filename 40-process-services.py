@@ -26,8 +26,8 @@ with open(config_path) as config_file:
   print(json.dumps(config_data, indent=2))
   for service in config_data['services']:
     service_config_path='/etc/nginx/conf.d/{}.conf'.format(service)
-    if os.path.isfile(config_path):
-      print('service already has config')
+    if os.path.isfile(service_config_path):
+      print('service already has config {}', service_config_path)
       continue
     service_setup=service_config.format(service=service)
     print(service_setup)
