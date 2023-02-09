@@ -8,20 +8,8 @@ service_config='''
 server {{
   server_name {service}.mamoru.kiev.ua
   listen 80;
-  listen 443 ssl; # managed by Certbot
 
-  # RSA certificate
-  ssl_certificate /etc/letsencrypt/live/{service}.mamoru.kiev.ua/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/{service}.mamoru.kiev.ua/privkey.pem; # managed by Certbot
-
-  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-
-  # Redirect non-https traffic to https
-  if ($scheme != "https") {{
-      return 301 https://$host$request_uri;
-  }} # managed by Certbot
-
-  location {{
+  location / {{
     proxy_pass http://internal-docker.{service};
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }}

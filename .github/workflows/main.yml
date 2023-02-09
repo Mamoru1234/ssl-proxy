@@ -1,0 +1,23 @@
+name: "Release latest"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: oleksiygontarpersonal
+          password: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Build image
+        run: docker build -t oleksiygontarpersonal/ssl-proxy:latest .
+      
+      - name: Push image
+        run: docker push oleksiygontarpersonal/ssl-proxy:latest
