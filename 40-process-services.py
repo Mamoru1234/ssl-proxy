@@ -37,4 +37,7 @@ with open(config_path) as config_file:
   print('Start processing config')
   print(json.dumps(config_data, indent=2))
   for service in config_data['services']:
-    print(service_config.format(service=service))
+    service_setup=service_config.format(service=service)
+    print(service_setup)
+    with open('/etc/nginx/conf.d/{}.conf'.format(service), 'w') as service_conf:
+      service_conf.write(service_setup)
