@@ -25,7 +25,11 @@ with open(config_path) as config_file:
   print('Start processing config')
   print(json.dumps(config_data, indent=2))
   for service in config_data['services']:
+    service_config_path='/etc/nginx/conf.d/{}.conf'.format(service)
+    if os.path.isfile(config_path):
+      print('service already has config')
+      continue
     service_setup=service_config.format(service=service)
     print(service_setup)
-    with open('/etc/nginx/conf.d/{}.conf'.format(service), 'w') as service_conf:
+    with open(service_config_path, 'w') as service_conf:
       service_conf.write(service_setup)
