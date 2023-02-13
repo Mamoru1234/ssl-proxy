@@ -1,0 +1,18 @@
+version: '3'
+services:
+  proxy:
+    depends_on:
+      - server
+    image: oleksiygontarpersonal/ssl-proxy:latest
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      SERVICE_HOST: confin.mamoru.kiev.ua
+      ACME_USER_MAIL: fgontar5@gmail.com
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+
+  server:
+    image: ealen/echo-server
+    hostname: docker-confin.mamoru.kiev.ua
