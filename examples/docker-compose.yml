@@ -8,11 +8,11 @@ services:
       - '80:80'
       - '443:443'
     environment:
-      SERVICE_HOST: confin.mamoru.kiev.ua
-      ACME_USER_MAIL: fgontar5@gmail.com
+      SERVICE_HOST: ticket.mamoru.kiev.ua
+      # ACME_USER_MAIL: fgontar5@gmail.com
     volumes:
       - ./letsencrypt:/etc/letsencrypt
 
   server:
     image: ealen/echo-server
-    hostname: docker-confin.mamoru.kiev.ua
+    hostname: docker-ticket.mamoru.kiev.ua
